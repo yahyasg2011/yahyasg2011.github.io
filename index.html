@@ -3,100 +3,164 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yahyasg | Pro ROI Calculator</title>
+    <title>Yahyasg | Pro ROI Suite</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        darkBg: '#0f172a',
+                        darkCard: '#1e293b'
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap');
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #0f172a; color: #f8fafc; }
-        .glass { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); }
-        .glow-blue { box-shadow: 0 0 20px rgba(59, 130, 246, 0.2); }
-        input:focus { outline: none; border-color: #3b82f6 !important; box-shadow: 0 0 10px rgba(59, 130, 246, 0.3); }
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+        body { font-family: 'Plus Jakarta Sans', sans-serif; transition: background-color 0.3s ease; }
+        .glass-dark { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); }
+        .logo-hover:hover { transform: scale(1.05); transition: 0.3s; }
     </style>
 </head>
-<body class="min-h-screen py-12 px-4">
+<body class="bg-slate-50 dark:bg-darkBg min-h-screen py-12 px-4 transition-colors duration-300">
+    <button onclick="toggleTheme()" class="fixed top-6 right-6 p-3 rounded-full bg-white dark:bg-darkCard shadow-lg z-50 border border-gray-200 dark:border-slate-700">
+        <i id="themeIcon" class="fas fa-moon text-blue-600 dark:text-yellow-400 text-xl"></i>
+    </button>
+
     <div class="max-w-4xl mx-auto">
         <div class="text-center mb-12">
-            <img src="logo.png" alt="Yahyasg Logo" class="h-24 mx-auto mb-6 drop-shadow-2xl">
-            <h1 class="text-3xl font-bold tracking-tight text-white">ROI Intelligence</h1>
-            <p class="text-slate-400 mt-2">Professional profit & scalability analysis</p>
+            <div class="flex justify-center mb-6">
+                <img src="logo.png" alt="Yahyasg Logo" class="h-28 w-auto logo-hover drop-shadow-xl">
+            </div>
+            <h1 class="text-4xl font-extrabold text-slate-900 dark:text-white mb-4 tracking-tight">ROI Calculator</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto font-light">Precision financial analysis for scaling your brand</p>
         </div>
 
         <div class="grid lg:grid-cols-2 gap-8">
-            <div class="glass rounded-3xl p-8 glow-blue">
-                <h2 class="text-xl font-semibold mb-6 flex items-center">
-                    <i class="fas fa-sliders text-blue-500 mr-3"></i>Parameters
+            <div class="bg-white dark:bg-darkCard rounded-3xl shadow-xl p-8 border border-slate-100 dark:border-slate-800">
+                <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-8 flex items-center">
+                    <i class="fas fa-sliders-h text-blue-600 mr-3"></i>Parameters
                 </h2>
-                <div class="space-y-5">
+                
+                <div class="space-y-6">
                     <div>
-                        <label class="text-xs font-bold text-slate-400 uppercase tracking-widest">Initial Investment</label>
-                        <div class="relative mt-2">
-                            <i class="fas fa-dollar-sign absolute left-4 top-1/2 -translate-y-1/2 text-slate-500"></i>
-                            <input type="number" id="initialInvestment" value="10000" class="w-full bg-slate-900/50 border border-slate-700 rounded-xl py-3 pl-10 pr-4 text-white">
+                        <label class="block text-xs font-bold text-slate-400 dark:text-slate-500 mb-2 uppercase tracking-widest">Initial Investment</label>
+                        <div class="relative">
+                            <i class="fas fa-dollar-sign absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"></i>
+                            <input type="number" id="initialInvestment" value="10000" class="w-full pl-10 pr-4 py-4 bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 rounded-2xl text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none transition">
                         </div>
                     </div>
-                    <div>
-                        <label class="text-xs font-bold text-slate-400 uppercase tracking-widest">Annual Revenue</label>
-                        <div class="relative mt-2">
-                            <i class="fas fa-chart-line absolute left-4 top-1/2 -translate-y-1/2 text-slate-500"></i>
-                            <input type="number" id="annualRevenue" value="25000" class="w-full bg-slate-900/50 border border-slate-700 rounded-xl py-3 pl-10 pr-4 text-white">
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-400 dark:text-slate-500 mb-2 uppercase tracking-widest">Revenue</label>
+                            <input type="number" id="annualRevenue" value="25000" class="w-full px-4 py-4 bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 rounded-2xl text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none transition">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-400 dark:text-slate-500 mb-2 uppercase tracking-widest">Costs</label>
+                            <input type="number" id="annualCosts" value="15000" class="w-full px-4 py-4 bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 rounded-2xl text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none transition">
                         </div>
                     </div>
+
                     <div>
-                        <label class="text-xs font-bold text-slate-400 uppercase tracking-widest">Operating Costs</label>
-                        <div class="relative mt-2">
-                            <i class="fas fa-receipt absolute left-4 top-1/2 -translate-y-1/2 text-slate-500"></i>
-                            <input type="number" id="annualCosts" value="15000" class="w-full bg-slate-900/50 border border-slate-700 rounded-xl py-3 pl-10 pr-4 text-white">
-                        </div>
+                        <label class="block text-xs font-bold text-slate-400 dark:text-slate-500 mb-2 uppercase tracking-widest">Timeframe (Years)</label>
+                        <input type="range" id="timeframe" min="1" max="10" value="1" class="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-blue-600">
+                        <div class="flex justify-between text-xs mt-2 text-slate-500 font-bold"><span id="timeVal">1 Year</span><span>10 Years</span></div>
                     </div>
+
+                    <button id="toggleDetails" class="w-full py-4 px-4 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 rounded-2xl font-bold transition hover:bg-blue-600 hover:text-white flex items-center justify-center">
+                        View Audit Details <i class="fas fa-chevron-down ml-2"></i>
+                    </button>
                 </div>
             </div>
 
-            <div class="flex flex-col space-y-6">
-                <div class="bg-gradient-to-br from-blue-600 to-indigo-700 rounded-3xl p-8 shadow-2xl relative overflow-hidden">
+            <div class="space-y-6">
+                <div class="bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800 rounded-3xl shadow-2xl p-8 text-white relative overflow-hidden">
                     <div class="relative z-10 text-center">
-                        <span class="text-xs font-bold uppercase tracking-widest opacity-80">Annual Return</span>
-                        <div id="roiResult" class="text-7xl font-black my-4">100.0%</div>
-                        <div class="inline-block bg-white/20 backdrop-blur-md px-4 py-1 rounded-full text-sm font-semibold italic">Profitable Strategy Confirmed</div>
+                        <h2 class="text-sm font-bold uppercase tracking-[0.2em] opacity-80 mb-6 text-blue-100">Projected Return</h2>
+                        <div id="roiResult" class="text-7xl font-black mb-6 tracking-tighter">100.0%</div>
+                        <div id="roiCategory" class="inline-block bg-white/20 backdrop-blur-md px-6 py-2 rounded-full text-sm font-bold border border-white/30">✅ Excellent Return</div>
+                    </div>
+                    <div class="absolute top-0 right-0 -mr-10 -mt-10 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="bg-white dark:bg-darkCard p-6 rounded-3xl shadow-md border border-slate-100 dark:border-slate-800">
+                        <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-2">Net Profit</span>
+                        <div id="netProfit" class="text-2xl font-bold text-green-500">$10,000</div>
+                    </div>
+                    <div class="bg-white dark:bg-darkCard p-6 rounded-3xl shadow-md border border-slate-100 dark:border-slate-800">
+                        <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-2">Break Even</span>
+                        <div id="breakEven" class="text-2xl font-bold text-blue-500">1.0 Year</div>
                     </div>
                 </div>
-                
-                <div class="grid grid-cols-2 gap-4">
-                    <div class="glass rounded-2xl p-6">
-                        <span class="text-xs font-bold text-slate-400 uppercase">Net Profit</span>
-                        <div id="netProfit" class="text-2xl font-bold text-green-400 mt-1">$10,000</div>
-                    </div>
-                    <div class="glass rounded-2xl p-6">
-                        <span class="text-xs font-bold text-slate-400 uppercase">Break Even</span>
-                        <div id="breakEven" class="text-2xl font-bold text-blue-400 mt-1">1.0 Years</div>
+
+                <div id="detailedBreakdown" class="bg-white dark:bg-darkCard rounded-3xl shadow-lg p-8 border border-slate-100 dark:border-slate-800 hidden">
+                    <h3 class="font-bold text-slate-900 dark:text-white mb-6">Financial Audit</h3>
+                    <div class="space-y-4 text-sm font-medium">
+                        <div class="flex justify-between text-slate-500"><span>Principal</span><span id="initialAmount" class="text-slate-900 dark:text-white font-bold">$10,000</span></div>
+                        <div class="flex justify-between text-slate-500"><span>Total Revenue</span><span id="totalRevenue" class="text-green-500 font-bold">$25,000</span></div>
+                        <div class="flex justify-between text-slate-500 border-b border-slate-100 dark:border-slate-700 pb-4"><span>Total Costs</span><span id="totalCosts" class="text-red-500 font-bold">$15,000</span></div>
+                        <div class="flex justify-between text-lg font-black pt-2 text-slate-900 dark:text-white"><span>Final Balance</span><span id="netProfitDetail">$10,000</span></div>
                     </div>
                 </div>
             </div>
         </div>
-        
-        <footer class="text-center mt-12 text-slate-500 text-sm">
-            &copy; 2026 Yahyasg Web Solutions. All rights reserved.
+
+        <footer class="mt-16 text-center text-slate-400 dark:text-slate-600 text-xs font-bold uppercase tracking-widest">
+            &copy; 2026 Yahyasg Web Solutions
         </footer>
     </div>
 
     <script>
-        function calculate() {
-            const investment = parseFloat(document.getElementById('initialInvestment').value) || 0;
-            const revenue = parseFloat(document.getElementById('annualRevenue').value) || 0;
-            const costs = parseFloat(document.getElementById('annualCosts').value) || 0;
-            
-            const profit = revenue - costs;
-            const roi = investment > 0 ? (profit / investment) * 100 : 0;
-            const breakEven = profit > 0 ? (investment / profit).toFixed(1) : '∞';
-
-            document.getElementById('roiResult').innerText = roi.toFixed(1) + '%';
-            document.getElementById('netProfit').innerText = '$' + profit.toLocaleString();
-            document.getElementById('breakEven').innerText = breakEven + ' Years';
+        function toggleTheme() {
+            document.documentElement.classList.toggle('dark');
+            const icon = document.getElementById('themeIcon');
+            icon.classList.toggle('fa-moon');
+            icon.classList.toggle('fa-sun');
         }
 
-        document.querySelectorAll('input').forEach(input => {
-            input.addEventListener('input', calculate);
-        });
+        function calculate() {
+            const initial = parseFloat(document.getElementById('initialInvestment').value) || 0;
+            const revenue = parseFloat(document.getElementById('annualRevenue').value) || 0;
+            const costs = parseFloat(document.getElementById('annualCosts').value) || 0;
+            const years = parseFloat(document.getElementById('timeframe').value) || 1;
+            
+            document.getElementById('timeVal').innerText = years + (years > 1 ? ' Years' : ' Year');
+
+            const annualProfit = revenue - costs;
+            const netProfit = (annualProfit * years) - initial;
+            const roi = initial > 0 ? (netProfit / initial) * 100 : 0;
+            const breakEven = annualProfit > 0 ? (initial / annualProfit).toFixed(1) : '∞';
+
+            document.getElementById('roiResult').innerText = roi.toFixed(1) + '%';
+            document.getElementById('netProfit').innerText = '$' + netProfit.toLocaleString();
+            document.getElementById('breakEven').innerText = breakEven + (breakEven === '1.0' ? ' Year' : ' Years');
+            
+            document.getElementById('initialAmount').innerText = '$' + initial.toLocaleString();
+            document.getElementById('totalRevenue').innerText = '$' + (revenue * years).toLocaleString();
+            document.getElementById('totalCosts').innerText = '$' + (costs * years).toLocaleString();
+            document.getElementById('netProfitDetail').innerText = '$' + netProfit.toLocaleString();
+            document.getElementById('netProfitDetail').className = netProfit >= 0 ? 'text-green-500' : 'text-red-500';
+
+            const cat = document.getElementById('roiCategory');
+            if (roi >= 50) cat.innerText = "✅ Excellent Return";
+            else if (roi >= 20) cat.innerText = "📈 Strong Return";
+            else if (roi >= 0) cat.innerText = "⚖️ Fair Return";
+            else cat.innerText = "❌ Poor Return";
+        }
+
+        document.getElementById('toggleDetails').onclick = function() {
+            const div = document.getElementById('detailedBreakdown');
+            div.classList.toggle('hidden');
+            this.innerHTML = div.classList.contains('hidden') ? 'View Audit Details <i class="fas fa-chevron-down ml-2"></i>' : 'Hide Audit Details <i class="fas fa-chevron-up ml-2"></i>';
+        };
+
+        document.querySelectorAll('input').forEach(i => i.oninput = calculate);
         calculate();
     </script>
 </body>
