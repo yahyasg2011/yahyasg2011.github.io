@@ -1,0 +1,302 @@
+import React, { useState } from 'react';
+import { Calculator, TrendingUp, DollarSign, Percent, Target, AlertCircle } from 'lucide-react';
+
+const ROICalculator = () => {
+  const [initialInvestment, setInitialInvestment] = useState('10000');
+  const [annualRevenue, setAnnualRevenue] = useState('25000');
+  const [annualCosts, setAnnualCosts] = useState('15000');
+  const [timeframe, setTimeframe] = useState('1');
+  const [showDetails, setShowDetails] = useState(false);
+
+  // Calculate ROI metrics
+  const initial = parseFloat(initialInvestment) || 0;
+  const revenue = parseFloat(annualRevenue) || 0;
+  const costs = parseFloat(annualCosts) || 0;
+  const years = parseFloat(timeframe) || 1;
+
+  // Annual profit calculation
+  const annualProfit = revenue - costs;
+  const totalProfit = annualProfit * years;
+  const netProfit = totalProfit - initial;
+  
+  // ROI calculation
+  const roiPercentage = initial > 0 ? (netProfit / initial) * 100 : 0;
+  
+  // Break-even point calculation
+  const breakEvenTime = annualProfit > 0 ? initial / annualProfit : Infinity;
+  
+  // ROI per year
+  const roiPerYear = roiPercentage / years;
+
+  // Format currency
+  const formatCurrency = (value) => {
+    return new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0
+    }).format(value);
+  };
+
+  // Format percentage
+  const formatPercentage = (value) => {
+    return value.toFixed(1) + '%';
+  };
+
+  // Determine ROI category
+  const getROICategory = () => {
+    if (roiPercentage >= 50) return { text: 'Excellent', color: 'text-green-600 bg-green-50', icon: '✅' };
+    if (roiPercentage >= 20) return { text: 'Good', color: 'text-blue-600 bg-blue-50', icon: '👍' };
+    if (roiPercentage >= 0) return { text: 'Fair', color: 'text-yellow-600 bg-yellow-50', icon: '⚠️' };
+    return { text: 'Poor', color: 'text-red-600 bg-red-50', icon: '❌' };
+  };
+
+  const roiCategory = getROICategory();
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 py-12 px-4 sm:px-6">
+      <div className="max-w-4xl mx-auto">
+        {/* Header */}
+        <div className="text-center mb-12">
+          <div className="flex justify-center mb-4">
+            <div className="bg-blue-600 p-3 rounded-full">
+              <Calculator className="w-8 h-8 text-white" />
+            </div>
+          </div>
+          <h1 className="text-4xl font-bold text-gray-900 mb-4">ROI Calculator</h1>
+          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+            Calculate your Return on Investment to evaluate the profitability of your business decisions
+          </p>
+        </div>
+
+        <div className="grid lg:grid-cols-2 gap-8">
+          {/* Input Section */}
+          <div className="bg-white rounded-2xl shadow-xl p-8">
+            <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center">
+              <Target className="w-6 h-6 mr-2 text-blue-600" />
+              Investment Parameters
+            </h2>
+            
+            <div className="space-y-6">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Initial Investment
+                </label>
+                <div className="relative">
+                  <DollarSign className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                  <input
+                    type="number"
+                    value={initialInvestment}
+                    onChange={(e) => setInitialInvestment(e.target.value)}
+                    className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+                    placeholder="10000"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Annual Revenue
+                </label>
+                <div className="relative">
+                  <DollarSign className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                  <input
+                    type="number"
+                    value={annualRevenue}
+                    onChange={(e) => setAnnualRevenue(e.target.value)}
+                    className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+                    placeholder="25000"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Annual Operating Costs
+                </label>
+                <div className="relative">
+                  <DollarSign className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                  <input
+                    type="number"
+                    value={annualCosts}
+                    onChange={(e) => setAnnualCosts(e.target.value)}
+                    className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+                    placeholder="15000"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Timeframe (Years)
+                </label>
+                <div className="relative">
+                  <TrendingUp className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                  <input
+                    type="number"
+                    min="0.1"
+                    step="0.1"
+                    value={timeframe}
+                    onChange={(e) => setTimeframe(e.target.value)}
+                    className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+                    placeholder="1"
+                  />
+                </div>
+              </div>
+
+              <button
+                onClick={() => setShowDetails(!showDetails)}
+                className="w-full py-3 px-4 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg font-medium transition flex items-center justify-center"
+              >
+                {showDetails ? 'Hide Details' : 'Show Detailed Breakdown'}
+                <svg 
+                  className={`w-4 h-4 ml-2 transition-transform ${showDetails ? 'rotate-180' : ''}`} 
+                  fill="none" 
+                  stroke="currentColor" 
+                  viewBox="0 0 24 24"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          {/* Results Section */}
+          <div className="space-y-6">
+            {/* Main ROI Result */}
+            <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl shadow-xl p-8 text-white">
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-2xl font-bold">ROI Result</h2>
+                <div className="bg-white/20 p-2 rounded-lg">
+                  <TrendingUp className="w-6 h-6" />
+                </div>
+              </div>
+              
+              <div className="text-center">
+                <div className="text-5xl font-bold mb-2">
+                  {formatPercentage(roiPercentage)}
+                </div>
+                <div className={`inline-flex items-center px-4 py-2 rounded-full text-sm font-medium ${roiCategory.color}`}>
+                  {roiCategory.icon} {roiCategory.text} Return
+                </div>
+                <p className="mt-2 text-blue-100">
+                  {netProfit >= 0 ? 'Profitable investment' : 'Unprofitable investment'}
+                </p>
+              </div>
+            </div>
+
+            {/* Key Metrics */}
+            <div className="grid grid-cols-2 gap-4">
+              <div className="bg-white rounded-xl shadow-md p-6">
+                <div className="flex items-center mb-2">
+                  <DollarSign className="w-5 h-5 text-green-600 mr-2" />
+                  <span className="text-sm font-medium text-gray-600">Net Profit</span>
+                </div>
+                <div className="text-2xl font-bold text-gray-900">
+                  {formatCurrency(netProfit)}
+                </div>
+              </div>
+
+              <div className="bg-white rounded-xl shadow-md p-6">
+                <div className="flex items-center mb-2">
+                  <Percent className="w-5 h-5 text-blue-600 mr-2" />
+                  <span className="text-sm font-medium text-gray-600">Annual ROI</span>
+                </div>
+                <div className="text-2xl font-bold text-gray-900">
+                  {formatPercentage(roiPerYear)}
+                </div>
+              </div>
+            </div>
+
+            {/* Break-even Analysis */}
+            <div className="bg-white rounded-xl shadow-md p-6">
+              <h3 className="font-semibold text-gray-900 mb-3 flex items-center">
+                <AlertCircle className="w-4 h-4 mr-2 text-orange-500" />
+                Break-even Analysis
+              </h3>
+              <div className="space-y-2">
+                <div className="flex justify-between">
+                  <span className="text-gray-600">Break-even Point:</span>
+                  <span className="font-medium">
+                    {breakEvenTime === Infinity ? 'Never' : 
+                     breakEvenTime < 1 ? 
+                       `${(breakEvenTime * 12).toFixed(1)} months` : 
+                       `${breakEvenTime.toFixed(1)} years`}
+                  </span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-600">Annual Profit:</span>
+                  <span className="font-medium text-green-600">
+                    {formatCurrency(annualProfit)}
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* Detailed Breakdown (Collapsible) */}
+            {showDetails && (
+              <div className="bg-white rounded-xl shadow-md p-6">
+                <h3 className="font-semibold text-gray-900 mb-4">Detailed Breakdown</h3>
+                <div className="space-y-3">
+                  <div className="flex justify-between py-2 border-b border-gray-100">
+                    <span className="text-gray-600">Initial Investment:</span>
+                    <span className="font-medium">{formatCurrency(initial)}</span>
+                  </div>
+                  <div className="flex justify-between py-2 border-b border-gray-100">
+                    <span className="text-gray-600">Total Revenue ({years} yrs):</span>
+                    <span className="font-medium text-green-600">{formatCurrency(revenue * years)}</span>
+                  </div>
+                  <div className="flex justify-between py-2 border-b border-gray-100">
+                    <span className="text-gray-600">Total Costs ({years} yrs):</span>
+                    <span className="font-medium text-red-600">{formatCurrency(costs * years)}</span>
+                  </div>
+                  <div className="flex justify-between py-2 border-b border-gray-100">
+                    <span className="text-gray-600">Total Operating Profit:</span>
+                    <span className="font-medium">{formatCurrency(totalProfit)}</span>
+                  </div>
+                  <div className="flex justify-between py-2 font-bold">
+                    <span>Net Profit/Loss:</span>
+                    <span className={netProfit >= 0 ? 'text-green-600' : 'text-red-600'}>
+                      {formatCurrency(netProfit)}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* Tips Section */}
+        <div className="mt-12 bg-white rounded-2xl shadow-xl p-8">
+          <h3 className="text-xl font-bold text-gray-900 mb-4">💡 ROI Calculation Tips</h3>
+          <div className="grid md:grid-cols-2 gap-4">
+            <div className="flex items-start">
+              <div className="bg-blue-100 p-2 rounded-lg mr-3 mt-1">
+                <Target className="w-4 h-4 text-blue-600" />
+              </div>
+              <div>
+                <h4 className="font-semibold text-gray-900">What is ROI?</h4>
+                <p className="text-gray-600 text-sm">
+                  Return on Investment measures the profitability of an investment relative to its cost.
+                </p>
+              </div>
+            </div>
+            <div className="flex items-start">
+              <div className="bg-green-100 p-2 rounded-lg mr-3 mt-1">
+                <Calculator className="w-4 h-4 text-green-600" />
+              </div>
+              <div>
+                <h4 className="font-semibold text-gray-900">Formula</h4>
+                <p className="text-gray-600 text-sm">
+                  ROI = [(Net Profit ÷ Cost of Investment) × 100]
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default ROICalculator;
