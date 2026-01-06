@@ -3,31 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yahyasg | Pro ROI Suite</title>
+    <title>Yahyasg | ROI Intelligence</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
             darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        darkBg: '#0f172a',
-                        darkCard: '#1e293b'
-                    }
-                }
-            }
+            theme: { extend: { colors: { darkBg: '#0f172a', darkCard: '#1e293b' } } }
         }
     </script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap');
         body { font-family: 'Plus Jakarta Sans', sans-serif; transition: background-color 0.3s ease; }
-        .glass-dark { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); }
         .logo-hover:hover { transform: scale(1.05); transition: 0.3s; }
     </style>
 </head>
-<body class="bg-slate-50 dark:bg-darkBg min-h-screen py-12 px-4 transition-colors duration-300">
-    <button onclick="toggleTheme()" class="fixed top-6 right-6 p-3 rounded-full bg-white dark:bg-darkCard shadow-lg z-50 border border-gray-200 dark:border-slate-700">
+<body class="bg-slate-50 dark:bg-darkBg min-h-screen py-12 px-4 transition-colors duration-300 text-left">
+    <button onclick="toggleTheme()" class="fixed top-6 right-6 p-3 rounded-full bg-white dark:bg-darkCard shadow-lg z-50 border border-slate-200 dark:border-slate-700">
         <i id="themeIcon" class="fas fa-moon text-blue-600 dark:text-yellow-400 text-xl"></i>
     </button>
 
@@ -37,7 +29,7 @@
                 <img src="logo.png" alt="Yahyasg Logo" class="h-28 w-auto logo-hover drop-shadow-xl">
             </div>
             <h1 class="text-4xl font-extrabold text-slate-900 dark:text-white mb-4 tracking-tight">ROI Calculator</h1>
-            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto font-light">Precision financial analysis for scaling your brand</p>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto font-light">Professional financial projections with infinite scale</p>
         </div>
 
         <div class="grid lg:grid-cols-2 gap-8">
@@ -57,44 +49,45 @@
 
                     <div class="grid grid-cols-2 gap-4">
                         <div>
-                            <label class="block text-xs font-bold text-slate-400 dark:text-slate-500 mb-2 uppercase tracking-widest">Revenue</label>
+                            <label class="block text-xs font-bold text-slate-400 dark:text-slate-500 mb-2 uppercase tracking-widest">Annual Revenue</label>
                             <input type="number" id="annualRevenue" value="25000" class="w-full px-4 py-4 bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 rounded-2xl text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none transition">
                         </div>
                         <div>
-                            <label class="block text-xs font-bold text-slate-400 dark:text-slate-500 mb-2 uppercase tracking-widest">Costs</label>
+                            <label class="block text-xs font-bold text-slate-400 dark:text-slate-500 mb-2 uppercase tracking-widest">Annual Costs</label>
                             <input type="number" id="annualCosts" value="15000" class="w-full px-4 py-4 bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 rounded-2xl text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none transition">
                         </div>
                     </div>
 
                     <div>
-                        <label class="block text-xs font-bold text-slate-400 dark:text-slate-500 mb-2 uppercase tracking-widest">Timeframe (Years)</label>
-                        <input type="range" id="timeframe" min="1" max="10" value="1" class="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-blue-600">
-                        <div class="flex justify-between text-xs mt-2 text-slate-500 font-bold"><span id="timeVal">1 Year</span><span>10 Years</span></div>
+                        <label class="block text-xs font-bold text-slate-400 dark:text-slate-500 mb-2 uppercase tracking-widest text-left">Timeframe (Years)</label>
+                        <div class="relative">
+                            <i class="fas fa-calendar-alt absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"></i>
+                            <input type="number" id="timeframe" value="1" min="0.1" step="0.1" class="w-full pl-10 pr-4 py-4 bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 rounded-2xl text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none transition">
+                        </div>
                     </div>
 
-                    <button id="toggleDetails" class="w-full py-4 px-4 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 rounded-2xl font-bold transition hover:bg-blue-600 hover:text-white flex items-center justify-center">
+                    <button id="toggleDetails" class="w-full py-4 px-4 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 rounded-2xl font-bold transition hover:bg-blue-600 hover:text-white flex items-center justify-center border border-slate-200 dark:border-slate-700">
                         View Audit Details <i class="fas fa-chevron-down ml-2"></i>
                     </button>
                 </div>
             </div>
 
             <div class="space-y-6">
-                <div class="bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800 rounded-3xl shadow-2xl p-8 text-white relative overflow-hidden">
+                <div class="bg-gradient-to-br from-blue-700 to-indigo-800 rounded-3xl shadow-2xl p-8 text-white relative overflow-hidden">
                     <div class="relative z-10 text-center">
-                        <h2 class="text-sm font-bold uppercase tracking-[0.2em] opacity-80 mb-6 text-blue-100">Projected Return</h2>
+                        <h2 class="text-xs font-bold uppercase tracking-[0.2em] opacity-80 mb-6">Total ROI</h2>
                         <div id="roiResult" class="text-7xl font-black mb-6 tracking-tighter">100.0%</div>
                         <div id="roiCategory" class="inline-block bg-white/20 backdrop-blur-md px-6 py-2 rounded-full text-sm font-bold border border-white/30">✅ Excellent Return</div>
                     </div>
-                    <div class="absolute top-0 right-0 -mr-10 -mt-10 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
                 </div>
 
                 <div class="grid grid-cols-2 gap-4">
                     <div class="bg-white dark:bg-darkCard p-6 rounded-3xl shadow-md border border-slate-100 dark:border-slate-800">
-                        <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-2">Net Profit</span>
+                        <span class="text-[10px] font-black text-slate-400 uppercase block mb-2 tracking-widest">Net Profit</span>
                         <div id="netProfit" class="text-2xl font-bold text-green-500">$10,000</div>
                     </div>
                     <div class="bg-white dark:bg-darkCard p-6 rounded-3xl shadow-md border border-slate-100 dark:border-slate-800">
-                        <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-2">Break Even</span>
+                        <span class="text-[10px] font-black text-slate-400 uppercase block mb-2 tracking-widest">Break Even</span>
                         <div id="breakEven" class="text-2xl font-bold text-blue-500">1.0 Year</div>
                     </div>
                 </div>
@@ -130,14 +123,13 @@
             const costs = parseFloat(document.getElementById('annualCosts').value) || 0;
             const years = parseFloat(document.getElementById('timeframe').value) || 1;
             
-            document.getElementById('timeVal').innerText = years + (years > 1 ? ' Years' : ' Year');
-
             const annualProfit = revenue - costs;
-            const netProfit = (annualProfit * years) - initial;
+            const totalProfit = annualProfit * years;
+            const netProfit = totalProfit - initial;
             const roi = initial > 0 ? (netProfit / initial) * 100 : 0;
             const breakEven = annualProfit > 0 ? (initial / annualProfit).toFixed(1) : '∞';
 
-            document.getElementById('roiResult').innerText = roi.toFixed(1) + '%';
+            document.getElementById('roiResult').innerText = roi.toLocaleString(undefined, {minimumFractionDigits: 1, maximumFractionDigits: 1}) + '%';
             document.getElementById('netProfit').innerText = '$' + netProfit.toLocaleString();
             document.getElementById('breakEven').innerText = breakEven + (breakEven === '1.0' ? ' Year' : ' Years');
             
